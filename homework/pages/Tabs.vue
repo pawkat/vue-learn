@@ -39,17 +39,9 @@
     mixins: [animation],
     computed: {
       showTabContent: function () {
+        // this.$route.push('about');
+        // console.log(this.$route.hash);
         let items = this.tabContent;
-        // if(this.currentRoute === '/tabs/male') {
-        //   let currentTab = this.currentTab;
-        //   let result = [];
-        //   items.forEach(function (el) {
-        //     if (el.tabName === 'Male') {
-        //       result.push(el);
-        //     }
-        //   });
-        //   return result;
-        // }
         if(this.currentTab === 'All') {
           return items;
         } else {
@@ -73,7 +65,7 @@
     },
     data () {
       return {
-        currentRoute: window.location.pathname,
+        // currentRoute: $route,
         currentTab: 'All',
         tabs: [
           {

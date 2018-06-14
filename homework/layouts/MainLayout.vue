@@ -37,6 +37,7 @@ export default {
 </script>
 
 <style lang="sass">
+
 .scale-enter-active, .scale-leave-active
   transition: all .7s
 .scale-leave
@@ -136,8 +137,4 @@ body
   border-bottom: 1px solid #cccccc
   &:last-child
     border-bottom: none
-.search
-  margin-bottom: 10px
-  padding: 10px
-  min-width: 300px
 </style>

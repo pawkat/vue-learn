@@ -7,12 +7,12 @@ export default {
       enter: function (el, done) {
         let tl = new TimelineMax({onComplete:done});
         tl
-          .from(el, 1, {x:'100%'})
+          .from(el, 1.5, {opacity: 0, y:'-100%', scale: 0.1})
       },
       leave: function (el, done) {
         let tl = new TimelineMax({onComplete:done});
         tl
-          .to(el, 1, {x:'100%'})
+          .to(el, 1, {opacity: 0, y:'100%', scale: 0.1})
       },
     },
 };
