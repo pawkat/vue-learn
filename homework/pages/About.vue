@@ -15,11 +15,6 @@
         </div>
         <h2 class="h2">Meet Our Team!</h2>
         <input type="text" class="search" v-model="message" placeholder="Search teammate...">
-        <!--<teammate-->
-          <!--v-if="searchResult"-->
-          <!--:key="searchResult.id"-->
-          <!--v-bind="searchResult"-->
-        <!--/>-->
         <div class="team">
           <teammate
             v-if="searchResult"
@@ -35,6 +30,7 @@
 <script>
 import MainLayout from '../layouts/MainLayout'
 import Teammate from '../components/Teammate'
+import animation from '../mixins/animation'
 export default {
   layout: 'MainLayout',
   name: 'About',
@@ -42,6 +38,7 @@ export default {
     MainLayout,
     Teammate
   },
+  mixins: [animation],
   computed: {
     searchResult: function () {
       let message = this.message;
@@ -113,9 +110,6 @@ export default {
       ]
     }
   },
-  comments: {
-    MainLayout
-  }
 }
 </script>
 

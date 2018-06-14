@@ -8,7 +8,7 @@
     <div class="post__more"
        v-on:click="visible=!visible"
     >
-      <img src="../assets/read-more-icon.png" alt="more">
+      <img src="~/assets/read-more-icon.png" alt="more">
       Read More</div>
 
   </div>
@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
   .post
     display: flex
     flex-direction: column

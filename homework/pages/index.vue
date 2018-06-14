@@ -2,7 +2,7 @@
     <div class="wrapper">
       <div class="posts">
         <input type="text" class="search" v-model="message" placeholder="Search post...">
-        <transition-group name="search">
+        <transition-group name="scale">
           <post
             v-if="searchResult[currentPage - 1]"
             v-for="post in searchResult[currentPage - 1]"
@@ -12,7 +12,7 @@
         </transition-group>
       </div>
       <div class="paging">
-        <a href="#" class="paging__prev" v-on:click="currentPage = (currentPage - 1) > 0 ? (currentPage - 1) : currentPage"><img src="../assets/chevron.png" alt="prev"></a>
+        <a href="#" class="paging__prev" v-on:click="currentPage = (currentPage - 1) > 0 ? (currentPage - 1) : currentPage"><img src="~/assets/chevron.png" alt="prev"></a>
         <div class="paging__items">
           <span class="paging__item"
                 v-for="(post, i) in searchResult"
@@ -21,7 +21,7 @@
                 v-on:click="currentPage = i + 1"
           >{{ i + 1 }}</span>
         </div>
-        <a href="#" class="paging__next" v-on:click="currentPage = (currentPage + 1) <= searchResult.length ? (currentPage + 1) : currentPage"><img src="../assets/chevron.png" alt="next"></a>
+        <a href="#" class="paging__next" v-on:click="currentPage = (currentPage + 1) <= searchResult.length ? (currentPage + 1) : currentPage"><img src="~/assets/chevron.png" alt="next"></a>
       </div>
     </div>
 </template>
@@ -159,20 +159,6 @@ export default {
 </script>
 
 <style lang="sass">
-  .search-enter-active, .search-leave-active
-    transition: all .7s
-  .search-leave
-    opacity: 1
-    transform: translateY(0)
-  .search-leave-to
-    opacity: 0
-    transform: translateY(-100%)
-  .search-enter
-    opacity: 0
-    transform: translateY(-100%)
-  .search-enter-to
-    opacity: 1
-    transform: translateY(0)
   .wrapper
     max-width: 940px
     margin: 0 auto

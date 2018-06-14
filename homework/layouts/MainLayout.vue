@@ -4,8 +4,9 @@
       <div class="header__wrapper wrapper">
         <nuxt-link to="/" class="logo">Classic</nuxt-link>
         <div class="nav">
-          <nuxt-link to="/" class="nav__item"><img src="../assets/home-icon.png" alt="home"></nuxt-link>
+          <nuxt-link to="/" class="nav__item"><img src="~/assets/home-icon.png" alt="home"></nuxt-link>
           <nuxt-link to="about" class="nav__item">About</nuxt-link>
+          <nuxt-link to="tabs" class="nav__item">Tabs</nuxt-link>
         </div>
       </div>
     </header>
@@ -15,12 +16,13 @@
         <div class="footer-nav">
           <nuxt-link to="/" class="footer-nav__item">Home</nuxt-link>
           <nuxt-link to="about" class="footer-nav__item">About</nuxt-link>
+          <nuxt-link to="tabs" class="footer-nav__item">Tabs</nuxt-link>
         </div>
         <div class="social">
-          <a href="#" class="social__item"><img src="../assets/twitter.png" alt=""></a>
-          <a href="#" class="social__item"><img src="../assets/facebook.png" alt=""></a>
-          <a href="#" class="social__item"><img src="../assets/pinterest.png" alt=""></a>
-          <a href="#" class="social__item"><img src="../assets/google-.png" alt=""></a>
+          <a href="#" class="social__item"><img src="~/assets/twitter.png" alt=""></a>
+          <a href="#" class="social__item"><img src="~/assets/facebook.png" alt=""></a>
+          <a href="#" class="social__item"><img src="~/assets/pinterest.png" alt=""></a>
+          <a href="#" class="social__item"><img src="~/assets/google-.png" alt=""></a>
         </div>
         <p>© Copyright 2013 DesignerFirst.com</p>
       </div>
@@ -35,6 +37,19 @@ export default {
 </script>
 
 <style lang="sass">
+.scale-enter-active, .scale-leave-active
+  transition: all .7s
+.scale-leave
+  opacity: 1
+.scale-leave-to
+  opacity: 0
+  transform: scale(.5)
+.scale-enter
+  opacity: 0
+  transform: scale(.5)
+.scale-enter-to
+  opacity: 1
+  transform: scale(1)
 body
   margin: 0
   overflow-x: hidden
@@ -111,7 +126,7 @@ body
   font-weight: 400
   line-height: 1.04
   letter-spacing: -1.2px
-  margin-bottom: 15px
+  margin: 0 auto 15px auto
   max-width: 710px
   padding: 0 10px
   box-sizing: border-box
