@@ -14,7 +14,9 @@
           <p>Our focus is and forever will be to bring high quality resources to lean from and to be inspired. Visit us daily for new design related articles!</p>
         </div>
         <h2 class="h2">Meet Our Team!</h2>
-        <input type="text" class="search" v-model="message" placeholder="Search teammate...">
+        <search-input
+          @searchMessage="searchMessage"
+        />
         <div class="team">
           <teammate
             v-if="searchResult"
@@ -30,15 +32,22 @@
 <script>
 import MainLayout from '../layouts/MainLayout'
 import Teammate from '../components/Teammate'
+import SearchInput from '../components/SearchInput'
 import animation from '../mixins/animation'
 export default {
   layout: 'MainLayout',
   name: 'About',
   components: {
     MainLayout,
-    Teammate
+    Teammate,
+    SearchInput
   },
   mixins: [animation],
+  methods: {
+    searchMessage: function (messasge) {
+      this.message = messasge;
+    }
+  },
   computed: {
     searchResult: function () {
       let message = this.message;

@@ -16,7 +16,6 @@
 
 <script>
 import MainLayout from '../layouts/MainLayout'
-// import Post from '../components/Post'
 import animation from '../mixins/animation'
 import SearchPosts from '../components/SearchPosts'
 export default {

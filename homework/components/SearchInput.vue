@@ -4,7 +4,7 @@
       type="text"
       class="search"
       v-model="message"
-      placeholder="Search post..."
+      placeholder="Search..."
       @input="$emit('searchMessage', message)"
     >
   </div>
