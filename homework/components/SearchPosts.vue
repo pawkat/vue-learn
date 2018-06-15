@@ -55,14 +55,7 @@ export default {
       let message = this.message,
           pageSize = this.pageSize,
           self = this;
-
-      let result = [];
-      for(let i = 0; i < this.posts.length; i++) {
-        let post = this.posts[i];
-        if(post.heading.toLowerCase().indexOf(message.toLowerCase()) !== -1) {
-          result.push(post);
-        }
-      }
+      let result = this.posts.filter(post => post.heading.toLowerCase().includes(this.message.toLowerCase()));
       self.pagingLength = Math.floor(result.length / pageSize);
       let visiblePosts = [];
       for (let i = 0; i < result.length / pageSize; i++) {

@@ -17,14 +17,16 @@
         <search-input
           @searchMessage="searchMessage"
         />
-        <div class="team">
+        <!--<div class="team">-->
+        <transition-group name="scale" class="team">
           <teammate
             v-if="searchResult"
             v-for="teammate in searchResult"
             :key="teammate.id"
             v-bind="teammate"
           />
-        </div>
+        </transition-group>
+        <!--</div>-->
       </div>
     </div>
 </template>
@@ -51,14 +53,7 @@ export default {
   computed: {
     searchResult: function () {
       let message = this.message;
-      let result = [];
-      for(let i = 0; i < this.team.length; i++) {
-        let teammate = this.team[i];
-        if(teammate.name.toLowerCase().indexOf(message.toLowerCase()) !== -1) {
-          result.push(teammate);
-        }
-      }
-      return result;
+      return this.team.filter(post => post.name.toLowerCase().includes(this.message.toLowerCase()));
 
     }
   },
