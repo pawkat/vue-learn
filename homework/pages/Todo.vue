@@ -1,33 +1,32 @@
 <template>
-    <div class="wrapper">
-
-        <SearchPosts/>
-
-    </div>
+  <div class="wrapper">
+    <TodoList/>
+  </div>
 </template>
 
 <script>
 import MainLayout from '../layouts/MainLayout'
 import animation from '../mixins/animation'
-import SearchPosts from '../components/SearchPosts'
+import TodoList from '../components/TodoList'
 export default {
   layout: 'MainLayout',
-  name: 'Home',
+  name: 'Todo',
   components: {
     MainLayout,
-    SearchPosts
+    TodoList
   },
   mixins: [animation],
+
   data () {
     return {
-
+      todoForm: false,
     }
-  }
+  },
 }
 </script>
 
 <style lang="sass">
-  .wrapper
-    max-width: 940px
-    margin: 0 auto
+
+
+
 </style>

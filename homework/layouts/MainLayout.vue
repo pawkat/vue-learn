@@ -7,6 +7,7 @@
           <nuxt-link to="/" class="nav__item"><img src="~/assets/home-icon.png" alt="home"></nuxt-link>
           <nuxt-link to="about" class="nav__item">About</nuxt-link>
           <nuxt-link to="tabs" class="nav__item">Tabs</nuxt-link>
+          <nuxt-link to="todo" class="nav__item">TODO</nuxt-link>
         </div>
       </div>
     </header>
@@ -17,6 +18,7 @@
           <nuxt-link to="/" class="footer-nav__item">Home</nuxt-link>
           <nuxt-link to="about" class="footer-nav__item">About</nuxt-link>
           <nuxt-link to="tabs" class="footer-nav__item">Tabs</nuxt-link>
+          <nuxt-link to="todo" class="footer-nav__item">TODO</nuxt-link>
         </div>
         <div class="social">
           <a href="#" class="social__item"><img src="~/assets/twitter.png" alt=""></a>
@@ -137,4 +139,32 @@ body
   border-bottom: 1px solid #cccccc
   &:last-child
     border-bottom: none
+.btn
+  background-color: #000000
+  color: #ffffff
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 10px
+  border: none
+  border-radius: 5px
+  transition: transform .3s ease
+  &:hover
+    cursor: pointer
+  &:active
+    transform: translateY(2px)
+
+.form
+  display: flex
+  flex-direction: column
+  width: 100%
+  &__field
+    height: 30px
+    border: 1px solid #000000
+    padding-left: 10px
+    width: 100%
+    margin-bottom: 20px
+    box-sizing: border-box
+    &:last-child
+      margin-bottom: 0
 </style>
