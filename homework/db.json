@@ -1,32 +1,44 @@
 {
   "todoList": [
     {
-      "text": "Task 1",
+      "text": "свертать",
+      "checked": true,
       "id": "1"
     },
     {
-      "text": "Task 2",
-      "id": "2",
+      "text": "добавить возможность добавлять TODO",
+      "checked": true,
+      "id": "2"
     },
     {
-      "text": "Task 3",
+      "text": "удалять TODO",
+      "checked": true,
       "id": "3"
     },
     {
-      "text": "Task 4",
+      "text": "отмечать как сделанные/не сделанные",
+      "checked": true,
       "id": "4"
     },
     {
-      "text": "test db",
-      "id": "aisfouV"
+      "text": " добавьте edit по double click",
+      "checked": true,
+      "id": "5"
     },
     {
-      "text": "Task 6",
-      "id": "X0L6wWQ"
+      "text": "добавьте роутинг (/all, /active, /completed)",
+      "checked": false,
+      "id": "6"
     },
     {
-      "text": "Task 7",
-      "id": "49ikXj5"
+      "text": "Кнопка Clear completed",
+      "checked": true,
+      "id": "7"
+    },
+    {
+      "text": "кнопка для того чтобы закончить все TODO махом ",
+      "checked": true,
+      "id": "8"
     }
   ]
 }

@@ -94,8 +94,9 @@ body
     padding: 15px 0
     border-top: 1px solid #999999
     display: flex
-    justify-content: space-between
+    justify-content: space-around
     align-items: center
+    flex-wrap: wrap
   &-nav
     display: flex
     &__item
@@ -148,6 +149,7 @@ body
   padding: 10px
   border: none
   border-radius: 5px
+  cursor: pointer
   transition: transform .3s ease
   &:hover
     cursor: pointer

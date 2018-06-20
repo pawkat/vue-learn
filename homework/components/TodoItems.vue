@@ -1,21 +1,33 @@
 <template>
-  <label
+  <div
     class="todo-list__item"
     :class="checked ? 'is-checked' : ''"
-    @dblclick="editItem"
+    @dblclick="editing = true"
   >
-    <input
-      type="checkbox"
-      class="todo-list__check"
-      @input="checked = !checked"
-      :checked="checked ? checked : ''"
+    <span class="todo-list__item-content">
+      <input
+        type="checkbox"
+        class="todo-list__check"
+        @input="$emit('checkItem', id)"
+        :checked="checked ? checked : ''"
+      >
+    <span
+      class="todo-list__text"
+      :disabled="editing ? disabled : ''"
+      :contenteditable="editing ? true : false"
+    >{{ text }}</span>
+    </span>
+    <button
+      class="todo-list__edit"
+      :class="editing ? 'is-active' : ''"
+      @click="finishEdit"
     >
-    <span class="todo-list__text">{{ text }}</span>
+    </button>
     <button
       class="todo-list__remove"
       @click="$emit('removeItem', id)"
     ></button>
-  </label>
+  </div>
 </template>
 
 <script>
@@ -23,22 +35,24 @@
     props: {
       text: String,
       id: String,
-      // checked: {
-      //   type: Boolean,
-      //   default: false
-      // }
+      disabled: Boolean,
+      checked:  Boolean,
     },
     methods: {
-      editItem: function () {
-
-      }
-      // removeItem: function (id) {
-      //   console.log(this, id);
+      finishEdit: function (event) {
+        this.editing = false;
+        let text = event.target.parentElement.children[0].children[1].innerHTML;
+        this.$emit('finishEditing', this.id, text);
+      },
+      // startEditing: function () {
+      //   this.editing = true;
+        // console.log(document.querySelector(` #${this.id} .todo-list__text`));
+        // document.querySelector('.todo-list__text').focus();
       // }
     },
     data() {
       return {
-        checked: false
+        editing: false,
       }
     }
   }
