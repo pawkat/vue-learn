@@ -15,14 +15,14 @@
       class="todo-list__text"
       :disabled="editing ? disabled : ''"
       :contenteditable="editing ? true : false"
+      @keyup="newText = $event.target.innerText"
     >{{ text }}</span>
     </span>
     <button
       class="todo-list__edit"
-      :class="editing ? 'is-active' : ''"
-      @click="finishEdit"
-    >
-    </button>
+      v-show="editing"
+      @click="edit"
+    ></button>
     <button
       class="todo-list__remove"
       @click="$emit('removeItem', id)"
@@ -42,26 +42,15 @@
 
     },
     methods: {
-      finishEdit: function (event) {
+      edit: function () {
         this.editing = false;
-        console.log(this.title, this.text);
-        // как это сделать другим способом..?
-        let text = event.target.parentElement.children[0].children[1].innerHTML;
-        this.$emit('finishEditing', this.id, text);
+        if (this.newText) this.$emit('editItem', this.id, this.newText);
       },
-      // value: function() {
-      //   console.log(this.text);
-      //   this.title = this.text;
-      //   return false;
-      // }
     },
-    // beforeMount(){
-    //   this.value()
-    // },
     data() {
       return {
         editing: false,
-        // title: '',
+        newText: ''
       }
     }
   }

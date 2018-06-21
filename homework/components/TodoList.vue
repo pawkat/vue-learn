@@ -34,11 +34,11 @@
         v-bind="item"
         @removeItem="removeItem"
         @checkItem="checkItem"
-        @finishEditing="finishEdit"
+        @editItem="editItem"
       />
     </transition-group>
     <div class="todo__hint">
-      <p>*для редактирования нажмите два раза на элемент списка</p>
+      <p>*для редактирования нажмите два раза на элемент списка, после окончания - на галочку</p>
     </div>
 
   </div>
@@ -76,8 +76,6 @@ export default {
       let option = this.todoList.find( item => item.id === id);
       option.checked = !option.checked;
       await axios.put(`http://localhost:3004/todoList/${id}`, option);
-      let newList = await axios.get(`http://localhost:3004/todoList/`);
-      this.todoList = newList.data;
     },
     checkAll: function () {
       this.todoList.forEach( async function (el) {
@@ -85,12 +83,10 @@ export default {
         await axios.put(`http://localhost:3004/todoList/${el.id}`, el);
       });
     },
-    async finishEdit (id, text) {
+    async editItem (id, text) {
       let option = this.todoList.find( item => item.id === id);
       option.text = text;
       await axios.put(`http://localhost:3004/todoList/${id}`, option);
-      let newList = await axios.get(`http://localhost:3004/todoList/`);
-      this.todoList = newList.data;
     },
     async clearCompleated () {
       this.todoList.forEach(async (el) => {
@@ -143,6 +139,17 @@ export default {
     width: 100%
     text-align: right
     font-size: 14px
+    p
+      &:after
+        content: ''
+        display: inline-block
+        margin: 0 40px 0 10px
+        width: 20px
+        height: 20px
+        transform: rotate(-90deg)
+        background-image: url('~/assets/arrow-35.png')
+        background-size: cover
+
 .todo-list
   display: flex
   flex-direction: column
@@ -169,8 +176,14 @@ export default {
     display: flex
     align-items: center
     width: 100%
+    max-width: calc(100% - 80px)
   &__text
+    padding: 0 5px
+    margin-right: 20px
     width: 100%
+    max-width: calc(100% - 50px)
+    overflow: hidden
+    text-overflow: ellipsis
     &.is-editing
       border: 1px solid royalblue
   &__edit
@@ -181,9 +194,7 @@ export default {
     background-color: transparent
     cursor: pointer
     background-image: url('~/assets/check.png')
-    display: none
-    &.is-active
-      display: block
+
 
 
   &__text

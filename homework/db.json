@@ -26,13 +26,13 @@
       "id": "5"
     },
     {
-      "text": "добавьте роутинг (/all, /active, /completed)",
-      "checked": true,
+      "text": "добавьте роутинг (/all, /active, /completed) ",
+      "checked": false,
       "id": "6"
     },
     {
       "text": "Кнопка Clear completed",
-      "checked": false,
+      "checked": true,
       "id": "7"
     },
     {
