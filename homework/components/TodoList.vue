@@ -1,17 +1,22 @@
 <template>
   <div class="todo">
     <h3 class="todo__title">TODO</h3>
-    <div class="todo__add-option">
+    <form
+      class="todo__add-option"
+      @submit.prevent="addTodoOption(addOption)"
+    >
       <input
         type="text"
         class="todo__field"
         v-model="addOption"
       >
-      <button
+      <input
+        type="submit"
         class="btn"
-        @click="addTodoOption(addOption)"
-      >Add option</button>
-    </div>
+        value="Add option"
+
+      />
+    </form>
     <div class="todo__buttons">
       <button
         class="btn"
@@ -59,6 +64,7 @@ export default {
         };
         this.todoList.push(option);
         axios.post('http://localhost:3004/todoList/', option);
+        this.addOption = '';
       }
     },
     async removeItem (id) {
@@ -66,10 +72,6 @@ export default {
       await axios.delete(`http://localhost:3004/todoList/${id}`);
       this.todoList.splice(this.todoList.indexOf(option), 1);
     },
-    // async editItem (id) {
-    //   console.log('edit');
-    //   let option = this.todoList.find( item => item.id === id);
-    // },
     async checkItem (id) {
       let option = this.todoList.find( item => item.id === id);
       option.checked = !option.checked;
@@ -91,8 +93,7 @@ export default {
       this.todoList = newList.data;
     },
     async clearCompleated () {
-      console.log(this.todoList);
-      this.todoList.forEach(async (el, i) => {
+      this.todoList.forEach(async (el) => {
         if (el.checked === true) {
           await axios.delete(`http://localhost:3004/todoList/${el.id}`);
         }

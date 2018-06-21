@@ -38,21 +38,30 @@
       disabled: Boolean,
       checked:  Boolean,
     },
+    computed: {
+
+    },
     methods: {
       finishEdit: function (event) {
         this.editing = false;
+        console.log(this.title, this.text);
+        // как это сделать другим способом..?
         let text = event.target.parentElement.children[0].children[1].innerHTML;
         this.$emit('finishEditing', this.id, text);
       },
-      // startEditing: function () {
-      //   this.editing = true;
-        // console.log(document.querySelector(` #${this.id} .todo-list__text`));
-        // document.querySelector('.todo-list__text').focus();
+      // value: function() {
+      //   console.log(this.text);
+      //   this.title = this.text;
+      //   return false;
       // }
     },
+    // beforeMount(){
+    //   this.value()
+    // },
     data() {
       return {
         editing: false,
+        // title: '',
       }
     }
   }
