@@ -18,20 +18,27 @@
       />
     </form>
     <div class="todo__buttons">
+      <TodoRoutes
+        v-for="item in todoRoutes"
+        :key="item.text"
+        v-bind="item"
+        @todoRoute="todoRoute"
+      />
       <button
         class="btn"
         @click="checkAll"
       >Check all</button>
       <button
         class="btn"
-        @click="clearCompleated"
+        @click="clearCompleted"
       >Clear completed</button>
     </div>
     <transition-group name="scale" class="todo-list">
       <TodoItems
-        v-for="item in todoList"
-        :key="item.id"
-        v-bind="item"
+        v-if="visibleTodo"
+        v-for="todo in visibleTodo"
+        :key="todo.id"
+        v-bind="todo"
         @removeItem="removeItem"
         @checkItem="checkItem"
         @editItem="editItem"
@@ -46,13 +53,26 @@
 
 <script>
 import TodoItems from '../components/TodoItems'
+import TodoRoutes from '../components/TodoRoutes'
 import axios from 'axios'
 export default {
   props: {
     // text: String
   },
   components: {
-    TodoItems
+    TodoItems,
+    TodoRoutes
+  },
+  computed: {
+    visibleTodo: function () {
+      if (this.currentTodos === 'completed') {
+        return this.todoList.filter(todo => todo.checked === true);
+      } else if (this.currentTodos === 'active') {
+        return this.todoList.filter(todo => todo.checked === false);
+      } else {
+        return this.todoList;
+      }
+    }
   },
   methods : {
     addTodoOption: function (text) {
@@ -60,7 +80,7 @@ export default {
         let option = {
           "text": text,
           "checked": false,
-          "id": (this.todoList.length + 1).toString()
+          "id": (new Date().getTime() + Math.random()).toString()
         };
         this.todoList.push(option);
         axios.post('http://localhost:3004/todoList/', option);
@@ -88,7 +108,7 @@ export default {
       option.text = text;
       await axios.put(`http://localhost:3004/todoList/${id}`, option);
     },
-    async clearCompleated () {
+    async clearCompleted () {
       this.todoList.forEach(async (el) => {
         if (el.checked === true) {
           await axios.delete(`http://localhost:3004/todoList/${el.id}`);
@@ -96,7 +116,11 @@ export default {
       });
       let newList = await axios.get(`http://localhost:3004/todoList/`);
       this.todoList = newList.data;
-    }
+    },
+    todoRoute: function (text) {
+      this.currentTodos = `${text.toLowerCase()}`
+    },
+
   },
   async created() {
     const {data} = await axios.get('http://localhost:3004/todoList');
@@ -106,7 +130,19 @@ export default {
     return {
       checked: false,
       addOption: '',
-      todoList: []
+      todoList: [],
+      currentTodos: '',
+      todoRoutes: [
+        {
+          'text': 'All',
+        },
+        {
+          'text': 'Active',
+        },
+        {
+          'text': 'Completed',
+        },
+      ]
     }
   }
 }
