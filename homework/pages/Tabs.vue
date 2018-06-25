@@ -10,6 +10,7 @@
           @switch-tab="switchTab"
         />
       </div>
+
       <div class="tab-content">
         <transition-group name="scale">
           <tabContent
@@ -39,8 +40,6 @@
     mixins: [animation],
     computed: {
       showTabContent: function () {
-        // this.$route.push('about');
-        // console.log(this.$route.hash);
         let items = this.tabContent;
         if(this.currentTab === 'All') {
           return items;

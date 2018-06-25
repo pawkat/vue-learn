@@ -47,12 +47,17 @@ export default {
 .scale-leave-to
   opacity: 0
   transform: scale(.5)
+.scale-leave-active
+  position: absolute
 .scale-enter
   opacity: 0
   transform: scale(.5)
 .scale-enter-to
   opacity: 1
   transform: scale(1)
+.scale-move
+  transition: transform .7s
+
 body
   margin: 0
   overflow-x: hidden
