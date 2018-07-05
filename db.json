@@ -2,27 +2,27 @@
   "todoList": [
     {
       "text": "свертать",
-      "checked": true,
+      "checked": false,
       "id": "1"
     },
     {
       "text": "добавить возможность добавлять TODO",
-      "checked": true,
+      "checked": false,
       "id": "2"
     },
     {
       "text": "удалять TODO",
-      "checked": true,
+      "checked": false,
       "id": "3"
     },
     {
       "text": "отмечать как сделанные/не сделанные",
-      "checked": true,
+      "checked": false,
       "id": "4"
     },
     {
       "text": " добавьте edit по double click",
-      "checked": true,
+      "checked": false,
       "id": "5"
     },
     {
@@ -32,12 +32,12 @@
     },
     {
       "text": "Кнопка Clear completed",
-      "checked": true,
+      "checked": false,
       "id": "7"
     },
     {
       "text": "кнопка для того чтобы закончить все TODO махом",
-      "checked": true,
+      "checked": false,
       "id": "8"
     }
   ]

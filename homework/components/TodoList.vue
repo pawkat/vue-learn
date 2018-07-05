@@ -3,7 +3,7 @@
     <h3 class="todo__title">TODO</h3>
     <form
       class="todo__add-option"
-      @submit.prevent="addTodoOption(addOption)"
+      @submit.prevent="$store.commit('add', addOption)"
     >
       <input
         type="text"
@@ -14,7 +14,6 @@
         type="submit"
         class="btn"
         value="Add option"
-
       />
     </form>
     <div class="todo__buttons">
@@ -26,11 +25,11 @@
       />
       <button
         class="btn"
-        @click="checkAll"
+        @click="$store.commit('checkAll')"
       >Check all</button>
       <button
         class="btn"
-        @click="clearCompleted"
+        @click="$store.commit('clearCompleted')"
       >Clear completed</button>
     </div>
     <transition-group name="scale" class="todo-list">
@@ -39,113 +38,122 @@
         v-for="todo in visibleTodo"
         :key="todo.id"
         v-bind="todo"
-        @removeItem="removeItem"
-        @checkItem="checkItem"
+        @removeItem="$store.commit('remove', todo.id)"
+        @checkItem="$store.commit('check', todo.id)"
         @editItem="editItem"
       />
+
     </transition-group>
     <div class="todo__hint">
       <p>*для редактирования нажмите два раза на элемент списка, после окончания - на галочку</p>
     </div>
-
   </div>
 </template>
 
 <script>
-import TodoItems from '../components/TodoItems'
-import TodoRoutes from '../components/TodoRoutes'
-import axios from 'axios'
-export default {
-  props: {
-    // text: String
-  },
-  components: {
-    TodoItems,
-    TodoRoutes
-  },
-  computed: {
-    visibleTodo: function () {
-      if (this.currentTodos === 'completed') {
-        return this.todoList.filter(todo => todo.checked === true);
-      } else if (this.currentTodos === 'active') {
-        return this.todoList.filter(todo => todo.checked === false);
-      } else {
-        return this.todoList;
+  import { mapState } from 'vuex'
+
+  import TodoItems from '../components/TodoItems'
+  import TodoRoutes from '../components/TodoRoutes'
+  export default {
+    data() {
+      return {
+        checked: false,
+        addOption: '',
+        currentTodos: '',
+        todoRoutes: [
+          {
+            'text': 'All',
+          },
+          {
+            'text': 'Active',
+          },
+          {
+            'text': 'Completed',
+          },
+        ]
       }
-    }
-  },
-  methods : {
-    addTodoOption: function (text) {
-      if (text) {
-        let option = {
-          "text": text,
-          "checked": false,
-          "id": (new Date().getTime() + Math.random()).toString()
-        };
-        this.todoList.push(option);
-        axios.post('http://localhost:3004/todoList/', option);
-        this.addOption = '';
-      }
-    },
-    async removeItem (id) {
-      let option = this.todoList.find( item => item.id === id);
-      await axios.delete(`http://localhost:3004/todoList/${id}`);
-      this.todoList.splice(this.todoList.indexOf(option), 1);
-    },
-    async checkItem (id) {
-      let option = this.todoList.find( item => item.id === id);
-      option.checked = !option.checked;
-      await axios.put(`http://localhost:3004/todoList/${id}`, option);
-    },
-    checkAll: function () {
-      this.todoList.forEach( async function (el) {
-        el.checked = true;
-        await axios.put(`http://localhost:3004/todoList/${el.id}`, el);
-      });
-    },
-    async editItem (id, text) {
-      let option = this.todoList.find( item => item.id === id);
-      option.text = text;
-      await axios.put(`http://localhost:3004/todoList/${id}`, option);
-    },
-    async clearCompleted () {
-      this.todoList.forEach(async (el) => {
-        if (el.checked === true) {
-          await axios.delete(`http://localhost:3004/todoList/${el.id}`);
-        }
-      });
-      let newList = await axios.get(`http://localhost:3004/todoList/`);
-      this.todoList = newList.data;
-    },
-    todoRoute: function (text) {
-      this.currentTodos = `${text.toLowerCase()}`
     },
 
-  },
-  async created() {
-    const {data} = await axios.get('http://localhost:3004/todoList');
-    this.todoList = data;
-  },
-  data() {
-    return {
-      checked: false,
-      addOption: '',
-      todoList: [],
-      currentTodos: '',
-      todoRoutes: [
-        {
-          'text': 'All',
-        },
-        {
-          'text': 'Active',
-        },
-        {
-          'text': 'Completed',
-        },
-      ]
-    }
+    components: {
+      TodoItems,
+      TodoRoutes
+    },
+    created () {
+      this.$store.dispatch('created');
+    },
+    computed: {
+      ...mapState({
+        todoList: 'todos'
+      }),
+      visibleTodo: function () {
+        if (this.currentTodos === 'completed') {
+          return this.todoList.filter(todo => todo.checked === true);
+        } else if (this.currentTodos === 'active') {
+          return this.todoList.filter(todo => todo.checked === false);
+        } else {
+          return this.todoList;
+        }
+      }
+    },
+    methods : {
+      // addTodoOption: function (text) {
+      //   if (text) {
+      //     let option = {
+      //       "text": text,
+      //       "checked": false,
+      //       "id": (new Date().getTime() + Math.random()).toString()
+      //     };
+      //     this.todoList.push(option);
+      //     axios.post('http://localhost:3004/todoList/', option);
+      //     this.addOption = '';
+      //   }
+      // },
+      // async removeItem (id) {
+      //   let option = this.todoList.find( item => item.id === id);
+      //   await axios.delete(`http://localhost:3004/todoList/${id}`);
+      //   this.todoList.splice(this.todoList.indexOf(option), 1);
+      // },
+      // async checkItem (id) {
+      //   let option = this.todoList.find( item => item.id === id);
+      //   option.checked = !option.checked;
+      //   await axios.put(`http://localhost:3004/todoList/${id}`, option);
+      // },
+      // async editItem (id, text) {
+      //   let option = this.todoList.find( item => item.id === id);
+      //   option.text = text;
+      //   await axios.put(`http://localhost:3004/todoList/${id}`, option);
+      // },
+      editItem (id, text) {
+        this.$store.commit('edit', {id, text})
+      },
+      // checkAll: function () {
+      //   this.todoList.forEach( async function (el) {
+      //     el.checked = true;
+      //     await axios.put(`http://localhost:3004/todoList/${el.id}`, el);
+      //   });
+      // },
+      // async clearCompleted () {
+      //   this.todoList.forEach(async (el) => {
+      //     if (el.checked === true) {
+      //       await axios.delete(`http://localhost:3004/todoList/${el.id}`);
+      //     }
+      //   });
+      //   let newList = await axios.get(`http://localhost:3004/todoList/`);
+      //   this.todoList = newList.data;
+      // },
+      todoRoute: function (text) {
+        this.currentTodos = `${text.toLowerCase()}`
+      },
+
+    },
+    // async created() {
+    //   const {data} = await axios.get('http://localhost:3004/todoList');
+    //   this.todoList = data;
+    // },
+
+
   }
-}
 </script>
 
 <style lang="sass">
