@@ -174,4 +174,72 @@ body
     box-sizing: border-box
     &:last-child
       margin-bottom: 0
+.loader-wrap
+  position: absolute
+  top: 0
+  left: -2%
+  width: 104%
+  height: 100%
+  z-index: 1
+  display: flex
+  justify-content: center
+  align-items: center
+  border-radius: 5px
+  &__bg
+    background-color: rgba(0,0,0,.8)
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    filter: blur(5px)
+.loader
+  width: 120px
+  height: 8px
+  background-color: #ffffff
+  overflow: hidden
+  position: relative
+  background-clip: padding-box
+  &__first-bar, &__second-bar
+    height: 100%
+    border-radius: 2px
+    background-color: #111111
+    position: absolute
+    overflow: hidden
+    display: block
+    will-change: left, right
+    background-clip: padding-box
+  &__first-bar
+    animation: 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) 0s infinite normal none running firstBar
+    -ms-animation: 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite normal firstBar
+  &__second-bar
+    animation: 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite normal none running secondBar
+    -ms-animation: 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite normal secondBar
+    -ms-animation-delay: 1.15s
+
+
+@keyframes firstBar
+  0%
+    left: -35%
+    right: 100%
+
+  60%
+    left: 100%
+    right: -90%
+
+  100%
+    left: 100%
+    right: -90%
+@keyframes secondBar
+  0%
+    left: -200%
+    right: 100%
+
+  60%
+    left: 107%
+    right: -8%
+
+  100%
+    left: 107%
+    right: -8%
 </style>

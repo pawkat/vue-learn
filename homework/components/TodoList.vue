@@ -3,7 +3,7 @@
     <h3 class="todo__title">TODO</h3>
     <form
       class="todo__add-option"
-      @submit.prevent="$store.commit('add', addOption)"
+      @submit.prevent="$store.dispatch('add', addOption)"
     >
       <input
         type="text"
@@ -25,11 +25,11 @@
       />
       <button
         class="btn"
-        @click="$store.commit('checkAll')"
+        @click="$store.dispatch('checkAll')"
       >Check all</button>
       <button
         class="btn"
-        @click="$store.commit('clearCompleted')"
+        @click="$store.dispatch('clearCompleted')"
       >Clear completed</button>
     </div>
     <transition-group name="scale" class="todo-list">
@@ -38,8 +38,8 @@
         v-for="todo in visibleTodo"
         :key="todo.id"
         v-bind="todo"
-        @removeItem="$store.commit('remove', todo.id)"
-        @checkItem="$store.commit('check', todo.id)"
+        @removeItem="$store.dispatch('remove', todo.id)"
+        @checkItem="$store.dispatch('check', todo.id)"
         @editItem="editItem"
       />
 
@@ -125,7 +125,7 @@
       //   await axios.put(`http://localhost:3004/todoList/${id}`, option);
       // },
       editItem (id, text) {
-        this.$store.commit('edit', {id, text})
+        this.$store.dispatch('edit', {id, text})
       },
       // checkAll: function () {
       //   this.todoList.forEach( async function (el) {
@@ -198,6 +198,7 @@
   display: flex
   flex-direction: column
   width: 100%
+  position: relative
   &__item
     display: flex
     align-items: center
@@ -213,7 +214,7 @@
       .todo-list__text
         text-decoration: line-through
     &:hover
-      background-color: #7f828b
+      background-color: rgba(0,0,0,.3)
       .todo-list__remove
         display: block
   &__item-content

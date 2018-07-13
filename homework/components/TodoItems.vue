@@ -3,6 +3,7 @@
     class="todo-list__item"
     :class="checked ? 'is-checked' : ''"
     @dblclick="editing = true"
+    v-rainbow
   >
     <span class="todo-list__item-content">
       <input
